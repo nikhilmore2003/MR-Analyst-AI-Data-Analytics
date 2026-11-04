@@ -1,6 +1,9 @@
 streamlit==1.65.0
-groq
-python-dotenv
 pandas
+chromadb
 duckdb
+python-dotenv
+groq
 pypdf
+langchain-text-splitters
+sentence-transformers
