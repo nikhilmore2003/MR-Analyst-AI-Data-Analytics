@@ -1,23 +1,10 @@
-
-# Secrets
 .env
 .env.*
 !.env.example
-
-# Python
 __pycache__/
 *.py[cod]
 .venv/
 venv/
-
-# ChromaDB
-chroma_db/
-my_database/
-
-# IDE
-.vscode/
-.idea/
-
-# OS
+.streamlit/secrets.toml
 .DS_Store
 Thumbs.db

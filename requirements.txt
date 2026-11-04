@@ -1,9 +1,6 @@
 streamlit==1.65.0
-pandas
 groq
 python-dotenv
-chromadb
+pandas
 duckdb
 pypdf
-langchain-text-splitters
-sentence-transformers

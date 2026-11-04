@@ -1,97 +1,38 @@
-# MR. Analyst 📊
-### AI-Powered Data Analysis & Document Intelligence Assistant
+# MR. Analyst
 
-MR. Analyst is an AI-powered application that enables users to interact with PDF documents and CSV datasets using natural language.
-
-Built using Python, Streamlit, Groq API, ChromaDB, Pandas and DuckDB.
+A Streamlit app for analysing one uploaded PDF or CSV using Groq.
 
 ## Features
+- PDF Q&A using retrieval-augmented generation (RAG): PDF text extraction, chunking, lexical retrieval, and Groq answer generation with page references.
+- CSV analysis using Pandas, Groq-generated read-only DuckDB SQL, and a Groq explanation of the computed result.
+- Dataset dimensions, missing-cell count, column types, and a small preview.
 
-### PDF Document Intelligence (RAG)
-- Upload PDF documents.
-- Extract and split PDF text into chunks.
-- Generate semantic embeddings using Sentence Transformers.
-- Store embeddings in ChromaDB.
-- Retrieve relevant information through semantic search.
-- Generate context-aware answers using Groq LLM.
-- Display relevant source pages.
+## Project files
+- `mr_analyst_app.py` — complete app
+- `requirements.txt` — dependencies
+- `.env.example` — example key configuration
+- `.gitignore` — excludes secrets and local files
 
-### CSV Data Analytics
-- Upload CSV datasets.
-- Process data using Pandas.
-- Automatically extract dataset schemas.
-- Generate DuckDB SQL queries using Groq.
-- Execute read-only SQL queries.
-- Generate natural-language explanations and insights.
+## Run locally
+1. Use Python 3.11.
+2. Install: `pip install -r requirements.txt`
+3. Copy `.env.example` to `.env` and add your key:
+   `GROQ_API_KEY=your_actual_key`
+4. Run: `streamlit run mr_analyst_app.py`
 
-## Technology Stack
+You can also paste the Groq key in the app sidebar. Never commit a real API key or `.env` file.
 
-| Component | Technology |
-|---|---|
-| Frontend | Streamlit |
-| Language | Python |
-| LLM | Groq API |
-| Vector Database | ChromaDB |
-| Embeddings | Sentence Transformers |
-| Text Processing | LangChain |
-| PDF Processing | PyPDF |
-| Data Processing | Pandas |
-| SQL Engine | DuckDB |
+## Deploy on Streamlit Community Cloud
+1. Upload all project files to GitHub.
+2. Set the main file path to `mr_analyst_app.py`.
+3. In Advanced settings, choose Python 3.11 if available.
+4. Add this in Streamlit Secrets:
+   `GROQ_API_KEY = "your_actual_key"`
+5. Deploy.
 
-## Architecture
-
-**PDF Pipeline**
-
-PDF Upload → Text Extraction → Chunking → Embeddings → ChromaDB → Semantic Retrieval → Groq LLM → Answer with Sources
-
-**CSV Pipeline**
-
-CSV Upload → Pandas → Schema Extraction → AI SQL Generation → DuckDB Execution → Groq LLM → Insights
-
-## Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/nikhilmore2003/MR-Analyst-AI-Data-Analytics.git
-```
-
-Navigate into the folder:
-
-```bash
-cd MR-Analyst-AI-Data-Analytics
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Create a `.env` file:
-
-```env
-GROQ_API_KEY=your_groq_api_key
-```
-
-Run the application:
-
-```bash
-streamlit run mr_analyst_app.py
-```
-
-## Future Enhancements
-
-- Excel file support
-- Advanced data visualizations
-- Chat history persistence
-- OCR support for scanned PDFs
-- Downloadable analysis reports
-
-## Author
-
-**Nikhil More**
-
-GitHub: [nikhilmore2003](https://github.com/nikhilmore2003)
-
-LinkedIn: [Nikhil More](https://www.linkedin.com/in/nikhil-more-a43a2b259/)
+## Notes
+- The configured Groq model is `openai/gpt-oss-20b`.
+- Scanned/image-only PDFs are not OCR-processed.
+- CSV queries are restricted to one read-only SELECT/WITH statement.
+- PDF retrieval uses lightweight lexical ranking. This version intentionally removes ChromaDB, Sentence Transformers, PyTorch, and CUDA dependencies to make deployment smaller and simpler.
+- The app uses `st.table` and `st.text_input` for previews and questions rather than interactive DataFrame and multiline text-area widgets.
